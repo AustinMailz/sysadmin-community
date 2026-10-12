@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Защита: строгий CSP — только свои файлы, никаких внешних запросов -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Дружное сообщество сисадминов: помогаем друг другу, отвечаем на любые вопросы, делимся гайдами и мемами. Вливайся в Discord.">
+  <meta name="theme-color" content="#0a0e14">
+  <title>Сообщество сисадминов — место, где помогут и поймут</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0e14'/%3E%3Ctext x='6' y='22' font-family='monospace' font-size='14' fill='%2300ff9c'%3E%26gt;_%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Экран загрузки (BIOS POST) -->
+  <div id="boot" hidden aria-hidden="true">
+    <pre id="boot-log"></pre>
+    <p class="boot-skip">нажми любую клавишу, чтобы пропустить</p>
+  </div>
+
+  <header class="nav">
+    <button id="logo" class="logo" title="не кликай меня три раза">~/sysadmin-community<span class="blink">█</span></button>
+    <nav class="nav-links">
+      <a href="#skills">Навыки</a>
+      <a href="#program">Программа</a>
+      <a href="#faq">FAQ</a>
+      <a class="js-discord nav-discord" href="https://discord.gg/REPLACE_ME" target="_blank" rel="noopener noreferrer">Discord</a>
+    </nav>
+    <button id="status" class="status" title="статус сервера (кликни)"><span class="dot"></span><span id="status-text">ONLINE</span></button>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="top">
+      <canvas id="matrix" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <p class="hero-pre">// добро пожаловать туда, где тебе ответят не «погугли»</p>
+        <h1 class="glitch" data-text="Сообщество сисадминов">Сообщество сисадминов</h1>
+        <p class="subtitle">Тут помогают новичкам, делятся опытом, травят байки из серверной и дружат.<br>
+          Один сисадмин — это грустно. Сообщество — это аптайм 99.9%.</p>
+        <div class="cta-row">
+          <a class="btn btn-discord js-discord" href="https://discord.gg/REPLACE_ME" target="_blank" rel="noopener noreferrer">Вступить в Discord</a>
+          <button class="btn btn-copy" id="copy-invite" type="button">Скопировать приглашение</button>
+          <a class="btn btn-ghost" href="#program">Что внутри</a>
+        </div>
+
+        <div class="terminal reveal">
+          <div class="term-bar">
+            <span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span>
+            <span class="term-title">you@community: ~</span>
+          </div>
+          <pre id="term-body">$ whoami
+одинокий_админ
+$ sudo apt install community
+Чтение списков пакетов... Готово
+[████████████████████] 100%
+Установлено: друзья, помощь, гайды, мемы
+$ whoami
+свой_среди_своих ✔</pre>
+        </div>
+        <p class="kbd-hint">псст… нажми <kbd>~</kbd> где угодно на сайте</p>
+      </div>
+    </section>
+
+    <!-- ===== Бегущая строка ===== -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track" id="ticker-track">
+        <span>Это не баг, это фича ✦ Вошёл в vim — живи теперь там ✦ Сначала бэкап — потом эксперименты ✦ Windows нашла решение проблемы: перезагрузитесь ✦ Работает? Не трогай! ✦ В пятницу не деплоим ✦ Не выключайте компьютер: обновление 1 из 247 ✦ Кто не делает бэкапы — тот уже плачет ✦ Кабель проверял? А если честно? ✦ DNS. Это всегда DNS. ✦ Перезагрузка решает 90% проблем ✦ </span>
+      </div>
+    </div>
+
+    <!-- ===== НАВЫКИ ===== -->
+    <section id="skills" class="section">
+      <h2 class="reveal"><span class="h-prompt">$</span> Что у нас есть</h2>
+      <div class="grid">
+        <article class="card reveal">
+          <div class="card-icon">🆘</div>
+          <h3>Помощь по делу</h3>
+          <p>Застрял — спроси. Тут отвечают развёрнуто и по-человечески, а не «погугли» и «man читай».</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">🐣</div>
+          <h3>Уголок новичка</h3>
+          <p>Глупых вопросов не существует. Все когда-то впервые набирали ip a и не понимали, что видят.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">🧠</div>
+          <h3>База гайдов</h3>
+          <p>Шпаргалки и инструкции от людей, которые на этих граблях уже постояли. Проверено на проде.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">😂</div>
+          <h3>Прикольчики</h3>
+          <p>Мемы про vim, из которого никто не вышел, про Windows Update в 3 часа ночи и байки из серверной.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">🎙️</div>
+          <h3>Посиделки</h3>
+          <p>Голосовые: совместные разборы, болталки по вечерам и просто хорошая компания.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">🛠️</div>
+          <h3>Разборы факапов</h3>
+          <p>Реальные истории: что сломалось, почему и как чинили. Учимся на чужих ошибках — это дешевле.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== СТАТЫ ===== -->
+    <section class="stats reveal">
+      <div class="stat"><span class="stat-num" data-count="99.9">99.9</span><span class="stat-unit">%</span><p>аптайм дружелюбия</p></div>
+      <div class="stat"><span class="stat-num" data-count="1000">1000</span><span class="stat-unit">+</span><p>попыток выйти из vim</p></div>
+      <div class="stat" id="coffee-stat" title="кликни — налью"><span class="stat-num">∞</span><span class="stat-unit">☕</span><p>кофе — на всех хватит</p></div>
+      <div class="stat"><span class="stat-num" data-count="0">0</span><span class="stat-unit">*</span><p>вопросов без ответа (*проверяем)</p></div>
+    </section>
+
+    <!-- ===== КАК УСТРОЕН СЕРВЕР ===== -->
+    <section id="program" class="section">
+      <h2 class="reveal"><span class="h-prompt">$</span> Как устроен сервер</h2>
+      <p class="section-sub reveal">Каналы и категории — чтобы сразу понимать, куда идти.</p>
+
+      <div class="modules">
+        <details class="module reveal">
+          <summary><span class="mod-num">👋</span> #привет-новичок</summary>
+          <ul>
+            <li>Заходишь, здороваешься, рассказываешь пару слов о себе</li>
+            <li>Бот выдаёт роль и подсказывает, куда смотреть дальше</li>
+            <li>Никто не укусит. Максимум — кинут мем</li>
+          </ul>
+        </details>
+        <details class="module reveal">
+          <summary><span class="mod-num">🆘</span> Форум помощи</summary>
+          <ul>
+            <li>Один вопрос — одна тема, ничего не теряется</li>
+            <li>Linux, Windows, сети, железо, Docker — спрашивай про что угодно</li>
+            <li>Решённые темы остаются в базе: возможно, твой вопрос уже разобрали</li>
+          </ul>
+        </details>
+        <details class="module reveal">
+          <summary><span class="mod-num">🧠</span> #гайды-и-шпаргалки</summary>
+          <ul>
+            <li>Полезные статьи, шпаргалки и ссылки от участников</li>
+            <li>Конспекты и разборы типовых задач</li>
+            <li>Нашёл крутой материал — делись, тут это ценят</li>
+          </ul>
+        </details>
+        <details class="module reveal">
+          <summary><span class="mod-num">😂</span> #прикольчики</summary>
+          <ul>
+            <li>Мемы: vim, Windows Update, «у меня на машине работает» и другая вечная боль</li>
+            <li>Скрины «как делать не надо» и байки из серверной</li>
+            <li>Пятничные истории факапов — лечат лучше валерьянки</li>
+          </ul>
+        </details>
+        <details class="module reveal">
+          <summary><span class="mod-num">🎙️</span> Голосовые посиделки</summary>
+          <ul>
+            <li>Совместные разборы проблем — иногда проще показать экран</li>
+            <li>Вечерние болталки обо всём</li>
+          </ul>
+        </details>
+        <details class="module reveal">
+          <summary><span class="mod-num">💬</span> #флудилка</summary>
+          <ul>
+            <li>Обо всём, что не влезло в другие каналы: железо, игры, жизнь</li>
+            <li>Здесь знакомятся и становятся друзьями</li>
+          </ul>
+        </details>
+        <div class="module-final reveal">
+          <span class="mod-num">ГЛАВНОЕ</span>
+          <div>
+            <h3>Помогли тебе — помоги другому</h3>
+            <p>Так это и работает: сегодня ты спрашиваешь, завтра отвечаешь. Опыт каждого делает сильнее всех.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== КАК ПРОХОДИТ ===== -->
+    <section id="how" class="section">
+      <h2 class="reveal"><span class="h-prompt">$</span> Как влиться</h2>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h3>Залетай на сервер</h3>
+          <p>Жмёшь кнопку, бот встречает тебя и выдаёт роль. Дальше — осмотрись.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <h3>Представься и спрашивай</h3>
+          <p>Пара слов о себе в приветственном канале — и задавай любые вопросы на форуме.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <h3>Помогай и делись</h3>
+          <p>Отвечай на то, в чём шаришь, кидай гайды и мемы. Так и становятся своими.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ЦИТАТЫ ===== -->
+    <section class="quotes reveal" aria-label="Мудрость сисадминов">
+      <blockquote id="quote-text">«Работало же вчера.»</blockquote>
+      <p id="quote-author">— каждый сисадмин хотя бы раз в жизни</p>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="section">
+      <h2 class="reveal"><span class="h-prompt">$</span> FAQ</h2>
+      <div class="faq-list">
+        <details class="faq-item reveal">
+          <summary>Я полный ноль. Мне сюда можно?</summary>
+          <p>Нужно! Новичкам тут рады больше всех. Все когда-то путали роутер со свитчем — это лечится общением.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Можно задавать «глупые» вопросы?</summary>
+          <p>Глупых вопросов не существует. Есть вопросы, которые ты пока не задал — и зря: возможно, ответ сэкономит тебе вечер.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Это платно?</summary>
+          <p>Нет. Это сообщество, а не курсы: люди помогают людям бесплатно, потому что им так нравится.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Я опытный админ. Мне зачем заходить?</summary>
+          <p>Делиться опытом, найти своих и отдыхать душой. Шутки про Windows Update сами себя не запостят.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Какие правила?</summary>
+          <p>Простые: помогаем, не токсичим, уважаем друг друга. За порядком следит бот и здравый смысл.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===== ФИНАЛЬНЫЙ CTA ===== -->
+    <section class="cta-final reveal">
+      <h2>Залетай — у нас уютно</h2>
+      <p>Помощь, гайды, посиделки и мемы уже внутри. Не хватает только тебя.</p>
+      <a class="btn btn-discord btn-big js-discord" href="https://discord.gg/REPLACE_ME" target="_blank" rel="noopener noreferrer">Вступить в Discord →</a>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year">2026</span> Сообщество сисадминов · Сделано в терминале с любовью</p>
+    <p class="footer-dim">Сайт хостится на чистом энтузиазме · uptime страницы: <span id="uptime">00:00</span></p>
+    <p class="footer-dim">секретов тут нет… или есть? <kbd>~</kbd></p>
+  </footer>
+
+  <!-- Достижения за найденные пасхалки -->
+  <button id="achievements-tab" type="button" aria-controls="achievements" aria-expanded="false">
+    🏆 <span id="achievements-count">0/12</span>
+  </button>
+  <aside id="achievements" aria-label="Достижения">
+    <div class="achievements-head">
+      <strong>ДОСТИЖЕНИЯ</strong>
+      <button id="achievements-close" class="hterm-x" type="button" aria-label="Закрыть">✕</button>
+    </div>
+    <p class="achievements-sub">// найденные пасхалки сохраняются в браузере</p>
+    <div id="achievements-list"></div>
+  </aside>
+
+  <!-- ПАСХАЛКА: серверная стойка (боковая панель) -->
+  <button id="rack-tab" title="что это за ручка?..">⚙</button>
+  <aside id="rack" aria-label="Секретная панель управления">
+    <div class="rack-head">
+      <span class="rack-leds"><i></i><i></i><i></i></span>
+      <strong>СЕРВЕРНАЯ СТОЙКА</strong>
+      <button id="rack-close" class="hterm-x" aria-label="Закрыть">✕</button>
+    </div>
+    <p class="rack-sub">// секретная панель управления сайтом</p>
+
+    <label class="switch-row"><span>☀️ Светлая тема</span>
+      <span class="switch"><input type="checkbox" id="sw-light"><i></i></span>
+    </label>
+    <label class="switch-row"><span>📺 CRT-монитор</span>
+      <span class="switch"><input type="checkbox" id="sw-crt"><i></i></span>
+    </label>
+    <label class="switch-row"><span>✏️ Comic Sans</span>
+      <span class="switch"><input type="checkbox" id="sw-comic"><i></i></span>
+    </label>
+    <label class="switch-row"><span>🔥 Турбо-режим</span>
+      <span class="switch"><input type="checkbox" id="sw-turbo"><i></i></span>
+    </label>
+    <label class="switch-row"><span>🌍 Гравитация</span>
+      <span class="switch"><input type="checkbox" id="sw-grav" checked><i></i></span>
+    </label>
+
+    <div class="gauge"><span>CPU: дружелюбие</span><div class="gauge-bar"><div class="gauge-fill g1"></div></div></div>
+    <div class="gauge"><span>RAM: мемы</span><div class="gauge-bar"><div class="gauge-fill g2"></div></div></div>
+
+    <button id="rack-red">НЕ НАЖИМАТЬ</button>
+    <p id="rack-status"></p>
+    <p class="rack-note">// начальству не показывать</p>
+  </aside>
+
+  <!-- Вспышка для «светлой темы» и CRT-плёнка -->
+  <div id="flashbang" hidden aria-hidden="true"></div>
+  <div id="crt-overlay" hidden aria-hidden="true"></div>
+
+  <!-- Тост-уведомления -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Скрытый терминал (пасхалка) -->
+  <div id="hterm" hidden>
+    <div class="hterm-window" role="dialog" aria-label="Скрытый терминал">
+      <div class="term-bar">
+        <span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span>
+        <span class="term-title">guest@community: секретная консоль</span>
+        <button id="hterm-close" class="hterm-x" aria-label="Закрыть">✕</button>
+      </div>
+      <div id="hterm-out"></div>
+      <form id="hterm-form">
+        <span class="hterm-prompt">guest@community:~$</span>
+        <input id="hterm-input" type="text" autocomplete="off" spellcheck="false" aria-label="Команда">
+      </form>
+    </div>
+  </div>
+
+  <!-- BSOD (пасхалка) -->
+  <div id="bsod" hidden>
+    <div class="bsod-inner">
+      <p class="bsod-face">:(</p>
+      <p>На сайте возникла проблема, и его пришлось перезагрузить.</p>
+      <p>Мы собираем информацию об ошибке (нет)…</p>
+      <p class="bsod-progress"><span id="bsod-pct">0</span>% выполнено</p>
+      <p class="bsod-small">Код остановки: TOO_MANY_CLICKS_ON_LOGO<br>Нажми любую клавишу или кликни, чтобы вернуться.</p>
+    </div>
+  </div>
+
+  <!-- ROOT ACCESS (Konami) -->
+  <div id="root-access" hidden>
+    <div class="root-stamp">ROOT ACCESS<br>GRANTED</div>
+    <p class="root-sub">sudo-права выданы. Используй с умом.</p>
+  </div>
+
+  <!-- Заставка в стиле DVD (после минуты бездействия) -->
+  <div id="saver" hidden aria-hidden="true">
+    <div class="saver-logo" id="saver-logo">&gt;_ sysadmin</div>
+    <span id="saver-bounces"></span>
+    <p class="saver-hint">заставка · пошевели мышкой, чтобы вернуться</p>
+  </div>
+
+</body>
+</html>
